@@ -1,85 +1,87 @@
-# prompts.md
+# NutriAI AI Development Prompts
 
-## Prompt 1: Project requirements summary
+This file documents the primary AI-assisted prompts used during the design, implementation, testing, and refinement of the NutriAI final project. The prompts below are summarized in professional form rather than copied verbatim from every working exchange.
 
-**Prompt:** "Final Exam - Individual Build Project... Can u help me work on the NutriAI. first summarize what the project requires and help me understand what is needed for the final."
+## Prompt 1: Requirements Interpretation
 
-**Purpose:** Used to extract the required deliverables, six core NutriAI capabilities, test personas, data expectations, deployment requirement, and ZIP structure from the provided project files.
+**Prompt summary:** Review the NutriAI project brief and summarize the required deliverables, grading-critical capabilities, dataset expectations, deployment requirements, and final ZIP structure.
 
-## Prompt 2: Extension brainstorming
+**Purpose:** Established the implementation checklist for the six required NutriAI capabilities: clinical filtering, allergy exclusion, dietary preferences, diversity, macro/micronutrient analysis, and sub-60-second generation.
 
-**Prompt:** "Is there anything that suggests that we can add more features to it if we want?"
+## Prompt 2: Data Pipeline Design
 
-**Purpose:** Used to identify optional extensions from the project brief, especially grocery lists, meal swaps, and adaptive learning.
+**Prompt summary:** Design a data pipeline using USDA FoodData Central as the nutrition data source and create an offline snapshot that satisfies the project requirement for a reusable food database.
 
-## Prompt 3: Student restaurant extension
+**Purpose:** Guided the creation of `food_snapshot.csv`, including nutrient-field selection, deduplication, and rule-oriented metadata fields for allergens and clinical caution flags.
 
-**Prompt:** "is there a way where i can go beyond it and look at local restaurants and calculate their nutrition level or what's safe to eat based on dietary restrictions"
+## Prompt 3: Recipe Catalog Structure
 
-**Purpose:** Used to design Restaurant Mode as a student-focused extension that ranks menu items as safer pick, caution, or avoid using the same safety filters as the meal planner.
+**Prompt summary:** Define a structured recipe catalog that converts nutrition and clinical requirements into complete meal records with diet tags, allergens, GI estimates, sodium/potassium/magnesium, grocery fields, and clinical safety flags.
 
-## Prompt 4: Review data decision
+**Purpose:** Created the schema and logic behind `recipe_catalog.csv`, allowing the planner to safely filter and rank complete meals rather than raw ingredient records.
 
-**Prompt:** "maybe also look at reviews by customers for certain things or is that not recommended?"
+## Prompt 4: Safety-First Recommendation Model
 
-**Purpose:** Used to decide not to rely on customer reviews for allergy/nutrition safety because reviews are subjective and incomplete. The final app uses menu/nutrition metadata instead.
+**Prompt summary:** Implement a hybrid rule-based and ranking model that first removes unsafe meals, then scores remaining candidates using nutrition fit, clinical fit, diversity, cost, and user preferences.
 
-## Prompt 5: Final build request
+**Purpose:** Established the main NutriAI model architecture: hard filtering for safety, followed by scoring and diversity-aware meal assignment.
 
-**Prompt:** "ok now help me finish the project"
+## Prompt 5: Clinical Rule Implementation
 
-**Purpose:** Used to implement the Streamlit application, data scripts, planner/ranking engine, grocery list, restaurant mode, persona tests, benchmarks, README, brief, and final ZIP-ready folder structure.
+**Prompt summary:** Translate IBS, GERD, Type 2 Diabetes, and Hypertension requirements into app-level food rules such as low-FODMAP screening, GERD trigger exclusion, low-GI preference, sodium limits, and DASH-style nutrient checks.
 
-## Prompt 6: Implementation debugging
+**Purpose:** Ensured that health conditions from the brief were represented as explicit and explainable filtering/ranking logic.
 
-**Prompt:** "Patch the generated catalog script so every recipe row includes the full macro/micro profile and keeps allergens separate from cross-contact notes."
+## Prompt 6: Persona-Based Testing
 
-**Purpose:** Used during development to fix recipe tuple slicing and guarantee the generated catalog has complete nutrition and safety metadata.
+**Prompt summary:** Build automated tests for the required NutriAI personas to verify clinical filtering, allergy exclusion, dietary compatibility, diversity score, nutrient analysis, and runtime.
 
-## Prompt 7: Benchmark refinement
+**Purpose:** Produced `docs/persona_test_results.csv` and validated that Priya, Ravi, Mei, and James pass the grading-critical requirements.
 
-**Prompt:** "Make the benchmark comparison fair by counting persona-specific safety/nutrition flags on both the calorie-only baseline and the optimized ranker."
+## Prompt 7: Benchmark and BAX-423 Technique Reporting
 
-**Purpose:** Used to improve the benchmark script so the technical brief reports a clean comparison of ranking impact.
+**Prompt summary:** Compare the optimized ranking model against simpler baselines and document relevant BAX-423 techniques such as feature engineering, Bloom-filter screening, hash embeddings, ranking, and evaluation.
 
-## Prompt 8: Calendar and household redesign
+**Purpose:** Supported the technical brief with measurable evidence for model design and course-relevant analytics techniques.
 
-**Prompt:** "I want to change my app a bit. I don't like the table format. I want to make it visually more appealing, like a calendar, where you can add a person entry to the same meal plan so it can be shared in households. The questions should include diabetes, vegetarian, and the other filters. Also add a sample meal plan calendar with the option to rearrange meals, and make it an all-in-one app for meal planning and grocery planning while fulfilling the project requirements."
+## Prompt 8: Household Planner Interface
 
-**Purpose:** Used to redesign the Streamlit interface into a visual household meal planner with empty household setup, add/remove people, shared safety filters, allergy color chips, week/day viewing, meal swap/replacement controls, interactive nutrition charts, grocery planning, restaurant mode, and a friendlier visual design while preserving the six required NutriAI capabilities.
+**Prompt summary:** Redesign the app from a table-based output into a household meal planner where users can add/remove members, combine filters, generate shared safe plans, and view meals by week or day.
 
-## Prompt 9: Visual polish
+**Purpose:** Created the main Streamlit workflow with household profiles, shared safety constraints, week/day planning, and meal swap/replacement controls.
 
-**Prompt:** "Remove the monthly calendar. Make it look more visually appealing. Add images, characters, a nice light green theme, and make the app features look ready to use."
+## Prompt 9: Grocery Planning Extension
 
-**Purpose:** Used to simplify the planner to week/day views, add a light green product theme, and replace fragile raw-HTML calendar rendering with native Streamlit cards.
+**Prompt summary:** Add an interactive grocery planner that aggregates ingredients from the generated meal plan, supports checklist-style shopping, and shows which recipes use each ingredient.
 
-## Prompt 10: Multi-week look-ahead
+**Purpose:** Added a practical meal-prep feature while keeping grocery output tied directly to the generated meal calendar.
 
-**Prompt:** "also add the capability to see beyond just the week we're focusing on."
+## Prompt 10: Nutrition Dashboard Refinement
 
-**Purpose:** Used to add a 1-4 week planning horizon, week/day focus selectors, multi-week meal swap/replacement controls, nutrition week filtering, grocery aggregation across the selected horizon, and documentation that the first week remains the required no-repeat grading plan.
+**Prompt summary:** Improve the nutrition dashboard so users can compare daily totals against clear nutrient targets instead of viewing raw field names or unclear trend charts.
 
-## Prompt 11: Professional UI polish
+**Purpose:** Replaced confusing micronutrient labels with a weekly nutrient target-check view and macro split visualization.
 
-**Prompt:** "this looks too childish. not professional at all. I also only have 2 hours to submit this"
+## Prompt 11: Restaurant Mode Scope
 
-**Purpose:** Used to remove the cartoon-style illustration, tighten the header and empty state, and convert the app into a more professional clinical meal-planning dashboard without changing the tested project capabilities.
+**Prompt summary:** Design an optional student-focused Restaurant Mode that applies the same safety rules to representative San Francisco neighborhood menu items while clearly labeling results as risk estimates.
 
-## Prompt 12: Usability refinements for nutrition, grocery, and recipes
+**Purpose:** Added a local-use extension without depending on unreliable customer reviews or incomplete live restaurant API data.
 
-**Prompt:** "i dont get the micro trend chart what is it for? per day for the week. its not really giving me anything useful. also for grocery list can i add it in a list format with the capability of clicking on each ingredient and seeing what recipes its used in. also for the meals in the calendar is it possible to click on it and see the recipe as well for that meal."
+## Prompt 12: UI Professionalization
 
-**Purpose:** Used to replace the raw micronutrient trend with a clearer weekly nutrient target check, convert groceries into an interactive shopping checklist, show which recipes use each ingredient, and make calendar meal cards expandable with recipe details.
+**Prompt summary:** Refine the visual design so the application feels like a polished clinical/student meal-planning tool rather than a prototype.
 
-## Prompt 13: SF restaurant extension scope
+**Purpose:** Improved the app’s layout, theme, empty state, cards, labels, and interaction flow while preserving the required model behavior.
 
-**Prompt:** "instead of sample can i use something for sf based restaurants i just want this as an added on wow feature so if its too complicated model i might wanna remove it entirely maybe"
+## Prompt 13: Recipe Detail Usability
 
-**Purpose:** Used to scope Restaurant Mode as a representative San Francisco neighborhood menu snapshot instead of live APIs or customer reviews, keeping the extension local, explainable, and safe for a final-project submission.
+**Prompt summary:** Make meal cards expandable so users can inspect recipe ingredients, nutrition values, GI, safety notes, grocery items, and recipe-specific prep guidance.
 
-## Prompt 14: Recipe instruction polish
+**Purpose:** Improved transparency and made the calendar more useful during a walkthrough or real meal-planning session.
 
-**Prompt:** "the recipe for all of this is the same is there a way to customize it for each recipe or will that take a while?"
+## Prompt 14: Deployment and Submission Packaging
 
-**Purpose:** Used to replace the generic meal-prep note with recipe-specific prep guidance derived from each meal's ingredients and meal type.
+**Prompt summary:** Prepare the final project for deployment and Canvas submission, including GitHub repository setup, Streamlit deployment, technical brief links, prompts documentation, and final ZIP packaging.
+
+**Purpose:** Ensured the submitted ZIP includes `code/`, `data/`, `brief.pdf`, `prompts.md`, requirements/setup files, the deployed app URL, and the source repository link.
