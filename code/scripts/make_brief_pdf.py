@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from html import escape
 from pathlib import Path
 
 from reportlab.lib import colors
@@ -16,6 +17,14 @@ def p(text: str, style: ParagraphStyle) -> Paragraph:
     return Paragraph(text.replace("&", "&amp;"), style)
 
 
+def cell(text: str, style: ParagraphStyle) -> Paragraph:
+    return Paragraph(escape(text), style)
+
+
+def wrap_rows(rows: list[list[str]], style: ParagraphStyle) -> list[list[Paragraph]]:
+    return [[cell(value, style) for value in row] for row in rows]
+
+
 def main() -> None:
     out = ROOT / "brief.pdf"
     doc = SimpleDocTemplate(str(out), pagesize=letter, rightMargin=0.45 * inch, leftMargin=0.45 * inch, topMargin=0.4 * inch, bottomMargin=0.4 * inch)
@@ -27,11 +36,12 @@ def main() -> None:
     styles["BodyText"].fontSize = 8.5
     styles["BodyText"].leading = 10.2
     small = ParagraphStyle("Small", parent=styles["BodyText"], fontSize=7.4, leading=8.8)
+    table_text = ParagraphStyle("TableText", parent=styles["BodyText"], fontSize=7.0, leading=8.4)
 
     story = [
         p("NutriAI Technical Brief", styles["Title"]),
         p("<b>Student:</b> Arshnoor Bhatia | <b>Course:</b> BAX-423 Big Data, Spring 2026", styles["BodyText"]),
-        p("<b>Deployment URL:</b> TODO add Streamlit Cloud URL | <b>GitHub:</b> TODO add repository URL", styles["BodyText"]),
+        p("<b>Deployment URL:</b> https://bax423-nutriai-final.streamlit.app/ | <b>GitHub:</b> https://github.com/Noorie-Noobie/BAX423_NutriAI_Final", styles["BodyText"]),
         Spacer(1, 5),
         p("1. System Overview", styles["Heading2"]),
         p(
@@ -59,7 +69,7 @@ def main() -> None:
         ["Nutrition", "Per-meal and daily totals for macros plus iron, calcium, B12, vitamin D, zinc, sodium, potassium, magnesium."],
         ["Sub-60 sec", "Generation time is logged and displayed."],
     ]
-    table = Table(core_rows, colWidths=[1.25 * inch, 6.0 * inch])
+    table = Table(wrap_rows(core_rows, table_text), colWidths=[1.25 * inch, 6.0 * inch])
     table.setStyle(
         TableStyle(
             [
@@ -74,11 +84,11 @@ def main() -> None:
 
     bench_rows = [
         ["Technique", "Benchmark Result", "Impact"],
-        ["Bloom-filter screening", "Exact token scan 2305.35 ms vs Bloom precheck 1710.98 ms", "1.35x faster on expanded catalog before exact verification."],
-        ["Hash embeddings + ranking", "Calorie-only baseline: 0 persona-specific flags, diversity 0.82. Optimized: 0 flags, diversity 0.93.", "Improved diversity while preserving hard-filter safety."],
-        ["Sub-60 generation", "Mean 0.092s, max 0.108s across required personas", "All plans generated far below the 60s cap."],
+        ["Bloom-filter screening", "Exact scan: 2305 ms. Bloom precheck: 1711 ms.", "1.35x faster before exact verification."],
+        ["Hash embeddings + ranking", "Baseline: 0 flags, diversity 0.82. Optimized: 0 flags, diversity 0.93.", "Higher diversity with hard-filter safety preserved."],
+        ["Sub-60 generation", "Mean 0.092s; max 0.108s across required personas.", "All plans generated far below 60 seconds."],
     ]
-    bench = Table(bench_rows, colWidths=[1.55 * inch, 3.55 * inch, 2.15 * inch])
+    bench = Table(wrap_rows(bench_rows, table_text), colWidths=[1.55 * inch, 3.45 * inch, 2.25 * inch])
     bench.setStyle(
         TableStyle(
             [
@@ -98,7 +108,7 @@ def main() -> None:
         ["Mei", "Vegan, tree-nut-free, all meals GI <= 55, fiber >= 25g/day", "Pass"],
         ["James", "Pescatarian, soy-free, sodium <= 1500mg/day, >=3 fish meals, potassium >=80% RDA", "Pass"],
     ]
-    personas = Table(persona_rows, colWidths=[0.8 * inch, 5.5 * inch, 0.8 * inch])
+    personas = Table(wrap_rows(persona_rows, table_text), colWidths=[0.8 * inch, 5.5 * inch, 0.8 * inch])
     personas.setStyle(
         TableStyle(
             [
