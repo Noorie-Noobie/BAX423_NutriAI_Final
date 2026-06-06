@@ -1,0 +1,4 @@
+benchmark,baseline,optimized,impact,notes
+Bloom precheck vs exact token scan,2305.35 ms,1710.98 ms,1.35x faster on expanded catalog,"Blocked counts exact=2400, bloom_maybe=2400"
+Embedding-aware ranking vs calorie-only baseline,0 persona-specific review flags; diversity 0.82,0 persona-specific review flags; diversity 0.93,Improved diversity and nutrient targeting after hard filters,"Baseline chooses closest calories only; optimized adds hash embeddings, nutrient fit, clinical boosts, and rebalancing."
+Sub-60-second generation,60.00 s requirement,mean 0.092s; max 0.108s,All required personas generated far below the cap,Measured locally with preprocessed CSV catalogs.

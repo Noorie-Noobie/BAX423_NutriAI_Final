@@ -1,0 +1,25 @@
+persona,capability,status,evidence
+Priya,Sub-60-second generation,Pass,0.062s
+Priya,Diversity engine,Pass,"score=0.94, unique=21/21"
+Priya,Dietary preference handling,Pass,All meals generated under Vegetarian hard filter.
+Priya,Allergy exclusion,Pass,"Checked dairy, lactose."
+Priya,Clinical condition filtering,Pass,"IBS-safe=True, min iron=15.1mg"
+Priya,Macro + micronutrient analysis,Pass,Daily macro/micro table and RDA comparison generated.
+Ravi,Sub-60-second generation,Pass,0.070s
+Ravi,Diversity engine,Pass,"score=1.00, unique=21/21"
+Ravi,Dietary preference handling,Pass,All meals generated under Non-Vegetarian hard filter.
+Ravi,Allergy exclusion,Pass,Checked gluten.
+Ravi,Clinical condition filtering,Pass,"GERD-safe=True, min B12=2.5mcg"
+Ravi,Macro + micronutrient analysis,Pass,Daily macro/micro table and RDA comparison generated.
+Mei,Sub-60-second generation,Pass,0.040s
+Mei,Diversity engine,Pass,"score=0.79, unique=21/21"
+Mei,Dietary preference handling,Pass,All meals generated under Vegan hard filter.
+Mei,Allergy exclusion,Pass,Checked tree_nuts.
+Mei,Clinical condition filtering,Pass,"max GI=48, min fiber=42.0g"
+Mei,Macro + micronutrient analysis,Pass,Daily macro/micro table and RDA comparison generated.
+James,Sub-60-second generation,Pass,0.057s
+James,Diversity engine,Pass,"score=0.97, unique=21/21"
+James,Dietary preference handling,Pass,All meals generated under Pescatarian hard filter.
+James,Allergy exclusion,Pass,Checked soy.
+James,Clinical condition filtering,Pass,"max sodium=1210mg, fish meals=8, min potassium=3100mg"
+James,Macro + micronutrient analysis,Pass,Daily macro/micro table and RDA comparison generated.
