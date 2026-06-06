@@ -2,6 +2,8 @@
 
 NutriAI is a Streamlit application for the BAX-423 final build project. It generates a personalized household meal calendar with clinical filtering, allergy exclusion, diet handling, diversity scoring, macro/micronutrient analytics, grocery-list export, safe meal swap/replacement controls, a 1-4 week planning horizon, and a student-oriented restaurant mode. The first 7 days remain the required rubric plan; longer horizons let users look ahead for meal prep while reusing safe meals only when the safe candidate pool is exhausted.
 
+Live app: https://bax423-nutriai-final.streamlit.app/
+
 ## Run Locally
 
 ```bash

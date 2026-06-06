@@ -2,7 +2,7 @@
 
 **Student:** Arshnoor Bhatia  
 **Course:** BAX-423 Big Data, Spring 2026  
-**Deployment URL:** TODO: add Streamlit Cloud URL after deployment  
+**Deployment URL:** https://bax423-nutriai-final.streamlit.app/  
 **GitHub Repository:** https://github.com/Noorie-Noobie/BAX423_NutriAI_Final
 
 ## 1. System Overview
